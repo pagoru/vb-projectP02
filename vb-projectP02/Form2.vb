@@ -1,21 +1,25 @@
 ﻿Public Class Form2
-    Private numero = 0
 
-    Public Function cridarCP(ds2 As DataSet) As System.Windows.Forms.DialogResult
-        Dim CPAuxiliar
+    'Carrega els codis postals
+    Public Function load(ds2 As DataSet) As DialogResult
+        ListBox1.Items.Clear()
 
-        If numero = 0 Then
-            For index As Integer = 0 To ds2.Tables("Ciutats").Rows.Count - 1
-                CPAuxiliar = ds2.Tables("Ciutats").Rows(index)("CP").ToString()
-                ListBox1.Items.Add(CPAuxiliar)
-            Next
-        End If
-        numero = numero + 1
-
+        For index As Integer = 0 To ds2.Tables("Ciutats").Rows.Count - 1
+            ListBox1.Items.Add(ds2.Tables("Ciutats").Rows(index)("CP").ToString())
+        Next
         Return ShowDialog()
     End Function
 
+    'Asigna el codi postal
+    'seleccionat
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        Form1.contacte_cp.Text = ListBox1.SelectedItem
+        Me.Close()
+    End Sub
+
+    'Tanca el formulari
+    'sense realitzar ninguna operacio
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Me.Close()
     End Sub
 End Class

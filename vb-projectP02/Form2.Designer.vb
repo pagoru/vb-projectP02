@@ -61,6 +61,7 @@ Partial Class Form2
         Me.Controls.Add(Me.ListBox1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Button5)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "Form2"
         Me.ShowIcon = False
         Me.Text = "Pablo González Rubio"

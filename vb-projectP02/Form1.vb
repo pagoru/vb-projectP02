@@ -7,11 +7,13 @@ Public Class Form1
 
     Private ds, ds2 As DataSet
     Private ada, ada2 As SqlDataAdapter
-    Private registreActual
+    Private actualContacte
     Private dv As DataView
 
-    Private banderaDreta = False, banderaEsquerra = False, banderaGuardat = False
-
+    'Es carrega el formulari per primera vegada
+    'Es conecta amb la base de dades i crea
+    'els datasets necessaris i adaptadors de 
+    'les dues taules de la base de dades
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         btnPersistencia.Enabled = False
         con = New SqlConnection
@@ -27,7 +29,7 @@ Public Class Form1
         ds = New DataSet()
         ds2 = New DataSet()
 
-        ada = New SqlDataAdapter("select * from CONTACTE", con)
+        ada = New SqlDataAdapter("select * from CONTACTE ORDER BY CAST(CODI AS INT) ASC", con)
         ada2 = New SqlDataAdapter("select CP from CIUTAT", con)
 
         Dim cmBase As SqlCommandBuilder = New SqlCommandBuilder(ada)
@@ -40,116 +42,129 @@ Public Class Form1
         pk(0) = ds.Tables("Contactes").Columns("CODI")
         ds.Tables("Contactes").PrimaryKey = pk
 
-        registreActual = 0
-        mostrarRegistreActual()
+        actualContacte = 0
+        showActualContacte()
     End Sub
 
-    Private Sub mostrarRegistreActual()
-
+    'Mostra el contacte actual
+    'mitjançant de forma idnividual
+    'totes les textbox necessaries
+    Private Sub showActualContacte()
         If ds.Tables("contactes").Rows.Count - 1 Then
             Try
-                contacte_codi.Text = ds.Tables("Contactes").Rows(registreActual)("CODI").ToString()
-                contacte_nom.Text = ds.Tables("Contactes").Rows(registreActual)("NOM").ToString()
-                contacte_cp.Text = ds.Tables("Contactes").Rows(registreActual)("CP").ToString()
-                contacte_telefon.Text = ds.Tables("Contactes").Rows(registreActual)("TELEFON").ToString()
-                contacte_categoria.Text = ds.Tables("Contactes").Rows(registreActual)("CATEGORIA").ToString()
-                contacte_email.Text = ds.Tables("Contactes").Rows(registreActual)("EMAIL").ToString()
-                contacte_riscmaxim.Text = ds.Tables("Contactes").Rows(registreActual)("RISCMAXIM").ToString()
+                contacte_codi.Text = ds.Tables("Contactes").Rows(actualContacte)("CODI").ToString()
+                contacte_nom.Text = ds.Tables("Contactes").Rows(actualContacte)("NOM").ToString()
+                contacte_cp.Text = ds.Tables("Contactes").Rows(actualContacte)("CP").ToString()
+                contacte_telefon.Text = ds.Tables("Contactes").Rows(actualContacte)("TELEFON").ToString()
+                contacte_categoria.Text = ds.Tables("Contactes").Rows(actualContacte)("CATEGORIA").ToString()
+                contacte_email.Text = ds.Tables("Contactes").Rows(actualContacte)("EMAIL").ToString()
+                contacte_riscmaxim.Text = ds.Tables("Contactes").Rows(actualContacte)("RISCMAXIM").ToString()
             Catch ex As Exception
 
             End Try
         End If
     End Sub
 
+    'Boto que mostra
+    'l'anterior contacte de la llista
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        If registreActual > 0 Then
-            Dim original As Integer = registreActual
-            registreActual = registreActual - 1
-            If registreActual > 0 Then
-                While registreActual > ds.Tables("Contactes").Rows.Count - 1 And
-                ds.Tables("Contactes").Rows(registreActual).RowState = DataRowState.Deleted
-                    registreActual = registreActual - 1
+        If actualContacte > 0 Then
+            Dim original As Integer = actualContacte
+            actualContacte = actualContacte - 1
+            If actualContacte > 0 Then
+                While actualContacte > ds.Tables("Contactes").Rows.Count - 1 And
+                ds.Tables("Contactes").Rows(actualContacte).RowState = DataRowState.Deleted
+                    actualContacte = actualContacte - 1
                 End While
             End If
-            If registreActual > ds.Tables("Contactes").Rows.Count - 1 Then
-                registreActual = original
+            If actualContacte > ds.Tables("Contactes").Rows.Count - 1 Then
+                actualContacte = original
             End If
-            mostrarRegistreActual()
-
+            showActualContacte()
         End If
     End Sub
 
+    'Boto que mostra
+    'el seguent contacte de la llista
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        If registreActual < ds.Tables("Contactes").Rows.Count - 1 Then
-            Dim original As Integer = registreActual
-            registreActual = registreActual + 1
-            While registreActual < ds.Tables("Contactes").Rows.Count - 1 And
-                ds.Tables("Contactes").Rows(registreActual).RowState = DataRowState.Deleted
+        If actualContacte < ds.Tables("Contactes").Rows.Count - 1 Then
+            Dim original As Integer = actualContacte
+            actualContacte += 1
+            While actualContacte < ds.Tables("Contactes").Rows.Count - 1 And
+                ds.Tables("Contactes").Rows(actualContacte).RowState = DataRowState.Deleted
 
-                registreActual = registreActual + 1
+                actualContacte += 1
             End While
-            If registreActual > ds.Tables("Contactes").Rows.Count - 1 Then
-                registreActual = original
+            If actualContacte > ds.Tables("Contactes").Rows.Count - 1 Then
+                actualContacte = original
             End If
-            mostrarRegistreActual()
-
+            showActualContacte()
         End If
     End Sub
 
+    'Boto que mostra
+    'el primer contacte de la llista
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        registreActual = 0
-        While registreActual < ds.Tables("Contactes").Rows.Count - 1 And
-            ds.Tables("Contactes").Rows(registreActual).RowState = DataRowState.Deleted
-            registreActual = registreActual + 1
+        actualContacte = 0
+        While actualContacte < ds.Tables("Contactes").Rows.Count - 1 And
+            ds.Tables("Contactes").Rows(actualContacte).RowState = DataRowState.Deleted
+            actualContacte += 1
         End While
 
-        mostrarRegistreActual()
+        showActualContacte()
     End Sub
 
+    'Boto que mostra
+    'l'ultim contacte de la llista
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        registreActual = ds.Tables("contactes").Rows.Count - 1
-        While ds.Tables("Contactes").Rows(registreActual).RowState = DataRowState.Deleted
-            registreActual = registreActual - 1
+        actualContacte = ds.Tables("contactes").Rows.Count - 1
+        While ds.Tables("Contactes").Rows(actualContacte).RowState = DataRowState.Deleted
+            actualContacte -= 1
         End While
-        mostrarRegistreActual()
+        showActualContacte()
     End Sub
 
+    'Botó que controla la
+    'busca de ids en els contactes
+    'actuals i mostra lactual
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        registreActual = 0
-        Dim registreBuscat = 0
+        actualContacte = 0
+        Dim finded = False
+        Dim searched = 0
         Dim idContacte
-        Dim idTractament
-        Dim trobat = False
+        Dim id
 
         If TextBox1.Text.Trim = String.Empty Then
-            MsgBox("EL camp id no pot estar buid per buscar per id")
+            MsgBox("EL camp id no pot estar buit")
         Else
             idContacte = TextBox1.Text
-            If registreActual < ds.Tables("Contactes").Rows.Count - 1 Then
+            If actualContacte < ds.Tables("Contactes").Rows.Count - 1 Then
 
-                While registreActual < ds.Tables("Contactes").Rows.Count - 1
+                While actualContacte < ds.Tables("Contactes").Rows.Count - 1
 
-                    If ds.Tables("Contactes").Rows(registreActual).RowState = DataRowState.Deleted Then
+                    If ds.Tables("Contactes").Rows(actualContacte).RowState = DataRowState.Deleted Then
 
                     Else
-                        idTractament = ds.Tables("Contactes").Rows(registreActual)("CODI").ToString()
-                        If idContacte = idTractament Then
-                            registreBuscat = registreActual
-                            trobat = True
+                        id = ds.Tables("Contactes").Rows(actualContacte)("CODI").ToString()
+                        If idContacte = id Then
+                            searched = actualContacte
+                            finded = True
                         End If
                     End If
-                    registreActual = registreActual + 1
+                    actualContacte = actualContacte + 1
                 End While
             End If
         End If
 
-        registreActual = registreBuscat
-        mostrarRegistreActual()
-        If trobat = False Then
-            MsgBox("Aquesta id no esta en el nostre sistema")
+        actualContacte = searched
+        showActualContacte()
+        If Not finded Then
+            MsgBox("La id no existeix")
         End If
     End Sub
 
+    'Botó que controla la 
+    'creació de nous contactes
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
         Dim dr As DataRow
         dr = ds.Tables("Contactes").NewRow
@@ -157,73 +172,85 @@ Public Class Form1
         dr("CODI") = "Camp obligatori"
 
         ds.Tables("Contactes").Rows.Add(dr)
-        registreActual = ds.Tables("Contactes").Rows.Count - 1
-        mostrarRegistreActual()
+        actualContacte = ds.Tables("Contactes").Rows.Count - 1
+        showActualContacte()
     End Sub
 
+    'Botó que controla 
+    'leliminació de contactes
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
-        ds.Tables("Contactes").Rows(registreActual).Delete()
+        ds.Tables("Contactes").Rows(actualContacte).Delete()
         Button1_Click(sender, e)
     End Sub
 
+    'Boto que guarda les dades
+    'actuals
     Private Sub Button8_Click(sender As Object, e As EventArgs) Handles Button8.Click
         If guardarCanvisLocal() Then
             MsgBox("Canvis en la base de dades local")
         End If
     End Sub
 
+    'Guarda totes les dades
+    'actuals de forma temporal en 
+    'els datasets i comprova si
+    'les dades son valides
     Private Function guardarCanvisLocal()
 
         Dim permitirFerCanvis = True
 
-        permitirFerCanvis = ComprovacioNom()
-        permitirFerCanvis = ComprovacioEmail()
-        permitirFerCanvis = ComprovacionsRisc()
-        permitirFerCanvis = ComprovacioCategoria()
-        permitirFerCanvis = ComprovacioTelefon()
-        permitirFerCanvis = ComprovacioCP()
+        permitirFerCanvis = isNameValid()
+        permitirFerCanvis = isEmailValid()
+        permitirFerCanvis = isCPValid()
+        permitirFerCanvis = isRiscValid()
+        permitirFerCanvis = isCategoriaValid()
+        permitirFerCanvis = isTelefonValid()
 
         If permitirFerCanvis Then
-            ds.Tables("Contactes").Rows(registreActual)("CODI") = contacte_codi.Text
-            ds.Tables("Contactes").Rows(registreActual)("NOM") = contacte_nom.Text
-            ds.Tables("Contactes").Rows(registreActual)("CP") = contacte_cp.Text
-            ds.Tables("Contactes").Rows(registreActual)("TELEFON") = contacte_telefon.Text
+            ds.Tables("Contactes").Rows(actualContacte)("CODI") = contacte_codi.Text
+            ds.Tables("Contactes").Rows(actualContacte)("NOM") = contacte_nom.Text
+            ds.Tables("Contactes").Rows(actualContacte)("CP") = contacte_cp.Text
+            ds.Tables("Contactes").Rows(actualContacte)("TELEFON") = contacte_telefon.Text
             Try
-                ds.Tables("Contactes").Rows(registreActual)("CATEGORIA") = contacte_categoria.Text
+                ds.Tables("Contactes").Rows(actualContacte)("CATEGORIA") = contacte_categoria.Text
             Catch ex As Exception
-                ds.Tables("Contactes").Rows(registreActual)("CATEGORIA") = 0
+                ds.Tables("Contactes").Rows(actualContacte)("CATEGORIA") = 0
             End Try
-            ds.Tables("Contactes").Rows(registreActual)("EMAIL") = contacte_email.Text
-            ds.Tables("Contactes").Rows(registreActual)("RISCMAXIM") = contacte_riscmaxim.Text
+            ds.Tables("Contactes").Rows(actualContacte)("EMAIL") = contacte_email.Text
+            ds.Tables("Contactes").Rows(actualContacte)("RISCMAXIM") = contacte_riscmaxim.Text
             btnPersistencia.Enabled = True
         End If
 
         Return permitirFerCanvis
     End Function
 
-    Public Function ComprovacioNom()
-        Dim bandera = True
+    'Comprova si el nom es valid
+    Public Function isNameValid()
         If contacte_nom.Text.Trim = String.Empty Then
             MsgBox("El camp nom és obligatori!", MsgBoxStyle.OkOnly)
-            bandera = False
+            Return False
         End If
-        Return bandera
+        Return True
     End Function
 
-    Public Function ComprovacioEmail()
-        Dim bandera = True
+    'Comprova si el correu
+    'electronic es valid
+    Public Function isEmailValid()
         Dim email As String = contacte_email.Text
 
         If contacte_email.Text.Trim = String.Empty Then
         Else
             If Not FormatEmail(email) Then
                 MsgBox("El format del email és incorrecte!", MsgBoxStyle.OkOnly)
-                bandera = False
+                Return False
             End If
         End If
-        Return bandera
+        Return True
     End Function
 
+    'Comprova si el correu
+    'electronic passat es
+    'valid
     Function FormatEmail(ByVal emailAddress As String) As Boolean
         Dim pattern As String = "^[a-zA-Z][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]" &
         "*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$"
@@ -231,7 +258,9 @@ Public Class Form1
         Return emailAddressMatch.Success
     End Function
 
-    Public Function ComprovacionsRisc()
+    'Comprova si el riscmaxim
+    'es valid
+    Public Function isRiscValid()
         If contacte_riscmaxim.Text.Trim = String.Empty Then
             MsgBox("El camp risc màxim és obligatori!", MsgBoxStyle.OkOnly)
         Else
@@ -243,7 +272,9 @@ Public Class Form1
         Return True
     End Function
 
-    Public Function ComprovacioCategoria()
+    'Comprova si la categoria
+    'es valida
+    Public Function isCategoriaValid()
         If contacte_categoria.Text.Trim = String.Empty Then
         Else
             Try
@@ -257,7 +288,9 @@ Public Class Form1
         Return True
     End Function
 
-    Public Function ComprovacioTelefon()
+    'Comprova si el telefon
+    'es valid
+    Public Function isTelefonValid()
         If contacte_telefon.Text.Trim = String.Empty Then
         Else
             If IsNumeric(contacte_telefon.Text) Then
@@ -270,32 +303,35 @@ Public Class Form1
         Return True
     End Function
 
-    Public Function ComprovacioCP()
-        Dim buscar = False
-        'No és obligatori el camp, en cas que hi hagui contingut mirem que el valor no sigui negatiu
-        If contacte_cp.Text.Trim = String.Empty Then
-        Else
+    'Comprova si el codif
+    'postal es valid
+    Public Function isCPValid()
+        If contacte_cp.Text.Trim IsNot String.Empty Then
             For index As Integer = 0 To ds2.Tables("Ciutats").Rows.Count - 1
                 If contacte_cp.Text = ds2.Tables("Ciutats").Rows(index)("CP").ToString() Then
-                    Exit For
+                    Return True
                 End If
             Next
-            If buscar = False Then
-                Return False
-                MsgBox("Aquest codi postal no es valid")
-            End If
         End If
-        Return True
+        MsgBox("Aquest codi postal no es valid")
+        Return False
     End Function
 
+    'Comprova si abans de
+    'tancar el formulari
+    'sha realitzat la persistencia
+    'a la base de dades
     Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If btnPersistencia.Enabled = True Then
+        If btnPersistencia.Enabled Then
             If MessageBox.Show("Vols fer la persistencia dels canvis realitzats?", "Atenció", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = System.Windows.Forms.DialogResult.Yes Then
                 generarPersistencia()
             End If
         End If
     End Sub
 
+    'Realitza l'acció de generar 
+    'persistencia de la taula de 
+    'contactes actuals i guarda les dades
     Private Sub generarPersistencia()
         Dim dt As DataTable
         Try
@@ -308,10 +344,15 @@ Public Class Form1
         End Try
     End Sub
 
+    'Boto que carrega el 
+    'formulari de codis postals
     Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
-        Form2.cridarCP(ds2)
+        Form2.load(ds2)
     End Sub
 
+    'Botó que realitza la
+    'persistencia de les dades
+    'actuals
     Private Sub btnPersistencia_Click(sender As Object, e As EventArgs) Handles btnPersistencia.Click
         generarPersistencia()
         MsgBox("Les dades s'han registrat a la BD permanentment")

@@ -23,6 +23,7 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Button9 = New System.Windows.Forms.Button()
         Me.contacte_riscmaxim = New System.Windows.Forms.TextBox()
         Me.contacte_email = New System.Windows.Forms.TextBox()
         Me.contacte_categoria = New System.Windows.Forms.TextBox()
@@ -47,7 +48,6 @@ Partial Class Form1
         Me.btnPersistencia = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Button9 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -74,6 +74,15 @@ Partial Class Form1
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Contacte"
+        '
+        'Button9
+        '
+        Me.Button9.Location = New System.Drawing.Point(193, 67)
+        Me.Button9.Name = "Button9"
+        Me.Button9.Size = New System.Drawing.Size(60, 23)
+        Me.Button9.TabIndex = 23
+        Me.Button9.Text = "Buscar"
+        Me.Button9.UseVisualStyleBackColor = True
         '
         'contacte_riscmaxim
         '
@@ -190,7 +199,6 @@ Partial Class Form1
         '
         'Button1
         '
-        Me.Button1.Enabled = False
         Me.Button1.Location = New System.Drawing.Point(12, 255)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(60, 23)
@@ -200,7 +208,6 @@ Partial Class Form1
         '
         'Button2
         '
-        Me.Button2.Enabled = False
         Me.Button2.Location = New System.Drawing.Point(212, 255)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(60, 23)
@@ -210,7 +217,6 @@ Partial Class Form1
         '
         'Button3
         '
-        Me.Button3.Enabled = False
         Me.Button3.Location = New System.Drawing.Point(78, 255)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(60, 23)
@@ -220,7 +226,6 @@ Partial Class Form1
         '
         'Button4
         '
-        Me.Button4.Enabled = False
         Me.Button4.Location = New System.Drawing.Point(146, 255)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(60, 23)
@@ -280,15 +285,6 @@ Partial Class Form1
         Me.TextBox1.Size = New System.Drawing.Size(60, 20)
         Me.TextBox1.TabIndex = 22
         '
-        'Button9
-        '
-        Me.Button9.Location = New System.Drawing.Point(193, 67)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(60, 23)
-        Me.Button9.TabIndex = 23
-        Me.Button9.Text = "Buscar"
-        Me.Button9.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -305,7 +301,6 @@ Partial Class Form1
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Enabled = False
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "Form1"
         Me.ShowIcon = False

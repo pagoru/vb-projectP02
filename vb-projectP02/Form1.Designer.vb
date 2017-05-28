@@ -23,12 +23,10 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.Button9 = New System.Windows.Forms.Button()
         Me.contacte_riscmaxim = New System.Windows.Forms.TextBox()
         Me.contacte_email = New System.Windows.Forms.TextBox()
         Me.contacte_categoria = New System.Windows.Forms.TextBox()
         Me.contacte_telefon = New System.Windows.Forms.TextBox()
-        Me.contacte_ciutat = New System.Windows.Forms.TextBox()
         Me.contacte_cp = New System.Windows.Forms.TextBox()
         Me.contacte_nom = New System.Windows.Forms.TextBox()
         Me.contacte_codi = New System.Windows.Forms.TextBox()
@@ -36,7 +34,6 @@ Partial Class Form1
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -47,6 +44,10 @@ Partial Class Form1
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button7 = New System.Windows.Forms.Button()
         Me.Button8 = New System.Windows.Forms.Button()
+        Me.btnPersistencia = New System.Windows.Forms.Button()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Button9 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -57,7 +58,6 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.contacte_email)
         Me.GroupBox1.Controls.Add(Me.contacte_categoria)
         Me.GroupBox1.Controls.Add(Me.contacte_telefon)
-        Me.GroupBox1.Controls.Add(Me.contacte_ciutat)
         Me.GroupBox1.Controls.Add(Me.contacte_cp)
         Me.GroupBox1.Controls.Add(Me.contacte_nom)
         Me.GroupBox1.Controls.Add(Me.contacte_codi)
@@ -65,7 +65,6 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.Label7)
         Me.GroupBox1.Controls.Add(Me.Label6)
-        Me.GroupBox1.Controls.Add(Me.Label5)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.Label1)
@@ -76,50 +75,33 @@ Partial Class Form1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Contacte"
         '
-        'Button9
-        '
-        Me.Button9.Location = New System.Drawing.Point(193, 68)
-        Me.Button9.Name = "Button9"
-        Me.Button9.Size = New System.Drawing.Size(60, 23)
-        Me.Button9.TabIndex = 9
-        Me.Button9.Text = "Ciutats"
-        Me.Button9.UseVisualStyleBackColor = True
-        '
         'contacte_riscmaxim
         '
-        Me.contacte_riscmaxim.Location = New System.Drawing.Point(129, 200)
+        Me.contacte_riscmaxim.Location = New System.Drawing.Point(129, 175)
         Me.contacte_riscmaxim.Name = "contacte_riscmaxim"
         Me.contacte_riscmaxim.Size = New System.Drawing.Size(124, 20)
         Me.contacte_riscmaxim.TabIndex = 21
         '
         'contacte_email
         '
-        Me.contacte_email.Location = New System.Drawing.Point(129, 174)
+        Me.contacte_email.Location = New System.Drawing.Point(129, 149)
         Me.contacte_email.Name = "contacte_email"
         Me.contacte_email.Size = New System.Drawing.Size(124, 20)
         Me.contacte_email.TabIndex = 20
         '
         'contacte_categoria
         '
-        Me.contacte_categoria.Location = New System.Drawing.Point(129, 148)
+        Me.contacte_categoria.Location = New System.Drawing.Point(129, 123)
         Me.contacte_categoria.Name = "contacte_categoria"
         Me.contacte_categoria.Size = New System.Drawing.Size(124, 20)
         Me.contacte_categoria.TabIndex = 19
         '
         'contacte_telefon
         '
-        Me.contacte_telefon.Location = New System.Drawing.Point(129, 122)
+        Me.contacte_telefon.Location = New System.Drawing.Point(129, 97)
         Me.contacte_telefon.Name = "contacte_telefon"
         Me.contacte_telefon.Size = New System.Drawing.Size(124, 20)
         Me.contacte_telefon.TabIndex = 18
-        '
-        'contacte_ciutat
-        '
-        Me.contacte_ciutat.Enabled = False
-        Me.contacte_ciutat.Location = New System.Drawing.Point(129, 96)
-        Me.contacte_ciutat.Name = "contacte_ciutat"
-        Me.contacte_ciutat.Size = New System.Drawing.Size(124, 20)
-        Me.contacte_ciutat.TabIndex = 17
         '
         'contacte_cp
         '
@@ -144,7 +126,7 @@ Partial Class Form1
         '
         'Label8
         '
-        Me.Label8.Location = New System.Drawing.Point(10, 202)
+        Me.Label8.Location = New System.Drawing.Point(10, 177)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(116, 18)
         Me.Label8.TabIndex = 13
@@ -153,7 +135,7 @@ Partial Class Form1
         '
         'Label4
         '
-        Me.Label4.Location = New System.Drawing.Point(10, 176)
+        Me.Label4.Location = New System.Drawing.Point(10, 151)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(116, 18)
         Me.Label4.TabIndex = 12
@@ -162,7 +144,7 @@ Partial Class Form1
         '
         'Label7
         '
-        Me.Label7.Location = New System.Drawing.Point(10, 150)
+        Me.Label7.Location = New System.Drawing.Point(10, 125)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(116, 18)
         Me.Label7.TabIndex = 10
@@ -171,22 +153,12 @@ Partial Class Form1
         '
         'Label6
         '
-        Me.Label6.Location = New System.Drawing.Point(10, 124)
+        Me.Label6.Location = New System.Drawing.Point(10, 99)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(116, 18)
         Me.Label6.TabIndex = 8
         Me.Label6.Text = "Telefon:"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'Label5
-        '
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label5.Location = New System.Drawing.Point(10, 96)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(116, 18)
-        Me.Label5.TabIndex = 6
-        Me.Label5.Text = "Ciutat:"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'Label3
         '
@@ -283,11 +255,48 @@ Partial Class Form1
         Me.Button8.Text = "Guardar"
         Me.Button8.UseVisualStyleBackColor = True
         '
+        'btnPersistencia
+        '
+        Me.btnPersistencia.Location = New System.Drawing.Point(278, 197)
+        Me.btnPersistencia.Name = "btnPersistencia"
+        Me.btnPersistencia.Size = New System.Drawing.Size(60, 23)
+        Me.btnPersistencia.TabIndex = 9
+        Me.btnPersistencia.Text = "Persistencia"
+        Me.btnPersistencia.UseVisualStyleBackColor = True
+        '
+        'Button6
+        '
+        Me.Button6.Location = New System.Drawing.Point(278, 137)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(60, 23)
+        Me.Button6.TabIndex = 10
+        Me.Button6.Text = "Buscar id"
+        Me.Button6.UseVisualStyleBackColor = True
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(278, 109)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(60, 20)
+        Me.TextBox1.TabIndex = 22
+        '
+        'Button9
+        '
+        Me.Button9.Location = New System.Drawing.Point(193, 67)
+        Me.Button9.Name = "Button9"
+        Me.Button9.Size = New System.Drawing.Size(60, 23)
+        Me.Button9.TabIndex = 23
+        Me.Button9.Text = "Buscar"
+        Me.Button9.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(350, 292)
+        Me.ClientSize = New System.Drawing.Size(348, 292)
+        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.Button6)
+        Me.Controls.Add(Me.btnPersistencia)
         Me.Controls.Add(Me.Button8)
         Me.Controls.Add(Me.Button7)
         Me.Controls.Add(Me.Button5)
@@ -304,6 +313,7 @@ Partial Class Form1
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -312,7 +322,6 @@ Partial Class Form1
     Friend WithEvents contacte_email As TextBox
     Friend WithEvents contacte_categoria As TextBox
     Friend WithEvents contacte_telefon As TextBox
-    Friend WithEvents contacte_ciutat As TextBox
     Friend WithEvents contacte_cp As TextBox
     Friend WithEvents contacte_nom As TextBox
     Friend WithEvents contacte_codi As TextBox
@@ -320,7 +329,6 @@ Partial Class Form1
     Friend WithEvents Label4 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents Label5 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
@@ -331,5 +339,8 @@ Partial Class Form1
     Friend WithEvents Button5 As Button
     Friend WithEvents Button7 As Button
     Friend WithEvents Button8 As Button
+    Friend WithEvents btnPersistencia As Button
+    Friend WithEvents Button6 As Button
+    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Button9 As Button
 End Class
